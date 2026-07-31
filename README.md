@@ -9,7 +9,7 @@
 
 - **开箱即用**: 提供全自动 Shell 安装脚本 [`scripts/install.sh`](./scripts/install.sh)。
 - **硬件解码优先**: 整合 AMD Freeworld 驱动与原生完整版 FFmpeg，解决视频播放与 GPU 硬解难题。
-- **精美 UI 调优**: 摆脱原生 GNOME “毛坯房”，开启窗口右上角**最小化/最大化控制按钮**，打造类似 macOS / Ubuntu 的高效常驻 Dock 栏与快捷键体验。
+- **精美 UI 调优**: 摆脱原生 GNOME “毛坯房”，恢复右上角**常驻系统托盘图标 (AppIndicator)**、开启窗口右上角**最小化/最大化控制按钮**，打造类似 macOS / Ubuntu 的高效常驻 Dock 栏与快捷键体验。
 - **前沿 AI 工具链**: 涵盖 `fnm` Node.js 环境管理、AI CLI (OpenCode / MimoCode / agy) 以及最新 AI IDE (Qoder CN / TRAE CN)。
 - **用户态优先**: 推荐非 root 用户级安全安装，拒绝破坏系统底层。
 
@@ -21,7 +21,7 @@
 Fedora-KB/
 ├── 01-System-Setup/               # 01. 系统初始化与换源
 ├── 02-Drivers-and-Codecs/         # 02. 驱动与硬件加速编码器
-├── 03-Desktop-Environment/        # 03. 桌面环境与 UI 调优 (常驻 Dock、窗口最小化/最大化按钮)
+├── 03-Desktop-Environment/        # 03. 桌面环境与 UI 调优 (常驻 Dock、窗口最小化/最大化按钮、系统托盘图标恢复)
 ├── 04-Software-Installation/      # 04. 常用桌面应用与 AI 开发工具链
 └── scripts/                       # 05. 自动化 Shell 脚本
 ```
@@ -37,12 +37,14 @@ Fedora-KB/
 
 ### 02. 驱动与编码器 (Drivers & Codecs)
 *显卡硬件加速与闭源音视频解码*
-- [01-gpu-drivers.md](./02-Drivers-and-Codecs/01-gpu-drivers.md) — GPU 硬件视频解码驱动配置指南 (AMD Freeworld 与 Intel Arc/核显媒体驱动对比、vainfo 诊断、FSR 4.1 与 Intel XeSS 3 在 Linux 下的生态深度对比)
+- [01-gpu-drivers.md](./02-Drivers-and-Codecs/01-gpu-drivers.md) — GPU 显卡驱动安装与视频硬件解码配置 (AMD & Intel Xe 架构驱动安装对比、vainfo 诊断、FSR 4.1 与 Intel XeSS 3 在 Linux 下的生态深度对比)
+
 - [02-ffmpeg-codecs.md](./02-Drivers-and-Codecs/02-ffmpeg-codecs.md) — 替换原生完整版 FFmpeg 与 `@multimedia` 闭源解码包
 
 ### 03. 桌面环境与 UI 调优 (Desktop Environment)
 *告别 GNOME“毛坯房”*
-- [01-gnome-extensions.md](./03-Desktop-Environment/01-gnome-extensions.md) — GNOME 界面美化与控制优化 (恢复**系统托盘图标** AppIndicator 并右对齐、开启窗口右上角**最小化/最大化按钮**、gsettings 命令行设置、快捷键 `Super+↓/↑`、Dash to Dock 常驻栏)
+- [01-gnome-extensions.md](./03-Desktop-Environment/01-gnome-extensions.md) — GNOME 界面美化与控制优化 (恢复右上角**系统托盘图标** AppIndicator 并右对齐、开启窗口右上角**最小化/最大化控制按钮**、gsettings 命令行设置、快捷键 `Super+↓/↑`、Dash to Dock 常驻栏)
+
 
 ### 04. 常用软件与 AI 开发工具 (Software & AI Tools)
 *常用桌面应用、开发环境与 AI 工具链*
