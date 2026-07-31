@@ -54,6 +54,8 @@ Fedora-KB/
 - [04-nodejs-setup.md](./04-Software-Installation/04-nodejs-setup.md) — Node.js 环境管理指南 (`fnm` 用户级管理、镜像加速与 Corepack)
 - [05-ai-tools-and-cli.md](./04-Software-Installation/05-ai-tools-and-cli.md) — AI 编程工具与开发 CLI (OpenCode, MimoCode, agy, GitHub CLI, Qoder CN, TRAE CN)
 - [06-podman-docker-setup.md](./04-Software-Installation/06-podman-docker-setup.md) — Podman 与 Docker Compose V2 容器配置 (Rootless 套接字、Compose V2 二进制、containers.conf 避坑与特权端口设置)
+- [07-jdk-temurin-setup.md](./04-Software-Installation/07-jdk-temurin-setup.md) — Java / JDK 开发环境指南 (Adoptium 官方 RPM 源、Eclipse Temurin 21 / 17 / 8 多版本安装与 `alternatives` 无缝切换)
+- [08-android-tools-adb-setup.md](./04-Software-Installation/08-android-tools-adb-setup.md) — Android Platform Tools 调试指南 (DNF 原生安装 `android-tools` 包含 `adb`/`fastboot`、常用命令与 `adbusers` / udev 权限调优)
 
 ### 05. 自动化脚本 (Scripts)
 - [install.sh](./scripts/install.sh) — 一键自动化换源、驱动、解码器与日常软件安装脚本
