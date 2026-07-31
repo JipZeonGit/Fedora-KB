@@ -53,6 +53,10 @@ echo "=== 14. 安装基础中文字体族与刷新字体缓存 (防止 JetBrains
 sudo dnf install -y google-noto-sans-cjk-fonts google-noto-serif-cjk-fonts wqy-microhei-fonts wqy-zenhei-fonts fontconfig
 sudo fc-cache -fv
 
+echo "=== 15. 安装 Podman 容器引擎与 podman-docker 兼容包 ==="
+sudo dnf install -y podman podman-docker
+
 echo "=== 全部自动化配置与软件安装已完成 ==="
+
 
 

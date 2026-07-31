@@ -51,9 +51,11 @@ Fedora-KB/
 - [03-spark-store-setup.md](./04-Software-Installation/03-spark-store-setup.md) — 星火应用商店 Spark Store 配置 (COPR 仓库管理、卸载与 APM 包管理)
 - [04-nodejs-setup.md](./04-Software-Installation/04-nodejs-setup.md) — Node.js 环境管理指南 (`fnm` 用户级管理、镜像加速与 Corepack)
 - [05-ai-tools-and-cli.md](./04-Software-Installation/05-ai-tools-and-cli.md) — AI 编程工具与开发 CLI (OpenCode, MimoCode, agy, GitHub CLI, Qoder CN, TRAE CN)
+- [06-podman-docker-setup.md](./04-Software-Installation/06-podman-docker-setup.md) — Podman 与 Docker Compose V2 容器配置 (Rootless 套接字、Compose V2 二进制、containers.conf 避坑与特权端口设置)
 
 ### 05. 自动化脚本 (Scripts)
 - [install.sh](./scripts/install.sh) — 一键自动化换源、驱动、解码器与日常软件安装脚本
+
 
 ---
 
