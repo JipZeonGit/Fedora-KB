@@ -1,6 +1,6 @@
 # 常用应用软件与开发工具安装指南
 
-记录通过 DNF、RPM Fusion 以及官方 RPM 软件包安装常用桌面与办公应用（Steam、MPV、VS Code、Microsoft Edge、JetBrains Toolbox、原生微信 Linux 版、WPS Office）的操作步骤与配置说明。
+记录通过 DNF、RPM Fusion、COPR 源、官方 RPM 软件包以及便携包安装常用桌面与办公应用（Steam、MPV、VS Code、Microsoft Edge、JetBrains Toolbox、原生微信 Linux 版、WPS Office、WindTerm SSH 终端、星火应用商店）的操作步骤与配置说明。
 
 ---
 
@@ -196,5 +196,46 @@ cd ~/.local/share/jetbrains-toolbox/bin/
    ```bash
    sudo dnf install -y ~/Downloads/wps-office-*.rpm
    ```
+
+---
+
+## 7. WindTerm 高性能 SSH 终端连接工具 (便携版配置桌面图标)
+
+WindTerm 是 Linux 下功能极强的高性能 SSH/Sftp 终端工具。官方提供免安装的便携（Portable）压缩包。
+
+### 7.1 下载与解压移动
+1. 访问官方 [WindTerm Releases 开源下载页面](https://github.com/kingToolbox/WindTerm/releases)。
+2. 下载最新的 Linux 便携包（例如 `WindTerm_2.x.x_Linux_Portable_x86_64.zip`）。
+3. 解压 zip 压缩包，得到形如 `WindTerm_2.x.x` 的文件夹。
+4. 将该文件夹重命名为 `WindTerm`（去除后缀版本号），并移动至用户本地软件目录 `~/.local/share/` 中：
+   ```bash
+   mv WindTerm ~/.local/share/
+   ```
+   *最终路径形态*: `~/.local/share/WindTerm` （例如 `/home/$USER/.local/share/WindTerm`）。
+
+---
+
+### 7.2 💡 用户级桌面快捷方式 (Desktop Entry) 自动集成
+
+为了让应用菜单与 Dock 栏能直接搜索并启动 WindTerm，可直接复制自带模版并修改可执行路径与图标：
+
+```bash
+# 1. 确保快捷方式存放目录存在
+mkdir -p ~/.local/share/applications
+
+# 2. 复制 WindTerm 自带的 desktop 文件模版
+cp ~/.local/share/WindTerm/windterm.desktop ~/.local/share/applications/windterm.desktop
+
+# 3. 使用 sed 命令修正 Exec 可执行文件路径
+sed -i "s|Exec=/usr/bin/windterm|Exec=/home/$USER/.local/share/WindTerm/WindTerm|g" ~/.local/share/applications/windterm.desktop
+
+# 4. 使用 sed 命令修正 Icon 图标绝对路径
+sed -i "s|Icon=windterm|Icon=/home/$USER/.local/share/WindTerm/windterm.png|g" ~/.local/share/applications/windterm.desktop
+```
+
+完成上述命令后，在 GNOME 应用程序菜单中即可直接搜索并点击 **WindTerm** 启动并固定至 Dock 栏。
+
+
+
 
 

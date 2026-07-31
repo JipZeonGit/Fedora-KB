@@ -61,9 +61,31 @@ sudo dnf install -y gnome-tweaks
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 ```
 
-### ⌨️ 补充：默认窗口快捷键操作提示
+### 补充：默认窗口快捷键操作提示
 即使未开启显示最小化与最大化按钮，也随时可使用系统默认快捷键对当前窗口进行操作：
 - **`Super (Windows 键)` + `↓` (下方向键)**: 最小化当前窗口。
 - **`Super (Windows 键)` + `↑` (上方向键)**: 最大化当前窗口 / 还原窗口大小。
+
+---
+
+## 4. 恢复 GNOME 桌面右上角系统托盘图标 (AppIndicator Support)
+
+GNOME 默认隐藏了传统后台应用（如微信、QQ、Steam、输入法等）的顶部托盘图标。可以通过开启 AppIndicator 扩展恢复常驻系统托盘。
+
+### 4.1 扩展安装 (若未内置)
+```bash
+sudo dnf install -y gnome-shell-extension-appindicator
+```
+
+### 4.2 图形界面开启与右对齐微调步骤
+1. 打开应用程序列表中的 **“扩展” (Extensions)** 应用。
+2. 在 **系统扩展 (System Extensions)** 列表中，找到并开启：
+   **`AppIndicator and KStatusNotifierItem Support`**
+3. 点击该扩展旁边的“设置”按钮进入高级选项：
+   - 勾选开启 **启用旧托盘图标支持 (Enable Legacy Tray Icon Support)**（确保老旧应用图标正常显示）。
+   - 将 **托盘水平对齐 (Tray Horizontal Alignment)** 选项设置为：**右对齐 (Right)**。
+
+完成设置后，微信、Steam 等后台后台应用在点击关闭后即可在右上角顶栏右侧正常显示托盘小图标。
+
 
 

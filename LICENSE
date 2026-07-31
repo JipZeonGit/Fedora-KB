@@ -11,7 +11,9 @@ All Markdown documentation, setup guides, and original written content in this r
 ### Terms Summary
 - **Share & Adapt**: You are free to copy, redistribute, and adapt the material in any medium or format for any purpose.
 - **Attribution**: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
-- **Exclusion Notice**: Documents extracted or summarized from official documentation (e.g., [`04-Software-Installation/03-nodejs-setup.md`](./04-Software-Installation/03-nodejs-setup.md) from [fnmnode.com](https://www.fnmnode.com/)) remain the copyright of their respective official authors and are **excluded** from this repository's CC-BY-4.0 license.
+- **Exclusion Notice**: Documents extracted or summarized from third-party official documentation (e.g., [`04-Software-Installation/04-nodejs-setup.md`](./04-Software-Installation/04-nodejs-setup.md) from [fnmnode.com](https://www.fnmnode.com/) and [`04-Software-Installation/02-flatpak-setup.md`](./04-Software-Installation/02-flatpak-setup.md) from [mirrors.ustc.edu.cn](https://mirrors.ustc.edu.cn/help/flathub.html)) remain the copyright of their respective official authors/maintainers and are **excluded** from this repository's CC-BY-4.0 license.
+
+
 
 ---
 
