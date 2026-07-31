@@ -37,7 +37,7 @@ Fedora-KB/
 
 ### 02. 驱动与编码器 (Drivers & Codecs)
 *显卡硬件加速与闭源音视频解码*
-- [01-amd-freeworld-drivers.md](./02-Drivers-and-Codecs/01-amd-freeworld-drivers.md) — AMD Freeworld 硬件解码驱动配置与 `vainfo` 诊断
+- [01-gpu-drivers.md](./02-Drivers-and-Codecs/01-gpu-drivers.md) — GPU 硬件视频解码驱动配置指南 (AMD Freeworld 与 Intel Arc/核显媒体驱动对比、vainfo 诊断、FSR 4.1 与 Intel XeSS 3 在 Linux 下的生态深度对比)
 - [02-ffmpeg-codecs.md](./02-Drivers-and-Codecs/02-ffmpeg-codecs.md) — 替换原生完整版 FFmpeg 与 `@multimedia` 闭源解码包
 
 ### 03. 桌面环境与 UI 调优 (Desktop Environment)

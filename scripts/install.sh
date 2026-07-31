@@ -2,8 +2,10 @@
 
 set -e
 
-echo "=== 1. 执行 LinuxMirrors 一键换源 ==="
+echo "=== 1. 执行 LinuxMirrors 镜像源配置 (需用户交互选择) ==="
+echo "[提示] 下方将进入 LinuxMirrors 交互菜单，请根据终端提示选择适合你网络环境的镜像源（如清华大学、中科大、阿里云等）。"
 bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+
 
 echo "=== 2. 换源后更新系统软件包与软件源缓存 ==="
 sudo dnf update -y
@@ -22,13 +24,42 @@ sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 echo "=== 6. 安装多媒体编解码包 (@multimedia) ==="
 sudo dnf install -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
-echo "=== 7. 安装 AMD Freeworld 硬件解码驱动与诊断工具 ==="
-sudo dnf install -y mesa-va-drivers-freeworld --allowerasing
+echo "=== 7. 选择并安装 GPU 硬件解码驱动 ==="
+echo "请选择你的 GPU 显卡类型："
+echo "  1) AMD 显卡 (Radeon 独显 / Ryzen 核显)"
+echo "  2) Intel 显卡 (Arc 独显 / Core Ultra Xe 核显)"
+echo "  3) 跳过显卡驱动安装"
+read -r -p "请输入选项数字 [1-3]: " GPU_CHOICE
+
+INSTALL_AMD_32=false
+case "$GPU_CHOICE" in
+  1)
+    echo "--> 已选择 AMD 显卡：安装 mesa-va-drivers-freeworld 驱动..."
+    sudo dnf install -y mesa-va-drivers-freeworld --allowerasing
+    INSTALL_AMD_32=true
+    ;;
+  2)
+    echo "--> 已选择 Intel 显卡：安装 intel-media-driver 驱动..."
+    sudo dnf install -y intel-media-driver
+    ;;
+  3)
+    echo "--> 跳过显卡驱动安装。"
+    ;;
+  *)
+    echo "--> 未知选项，默认跳过显卡驱动安装。"
+    ;;
+esac
+
 sudo dnf install -y libva-utils
 
-echo "=== 8. 安装 Steam 游戏客户端与 32位 AMD VA-API 驱动 ==="
+echo "=== 8. 安装 Steam 游戏客户端 ==="
 sudo dnf install -y steam
-sudo dnf install -y mesa-va-drivers-freeworld.i686
+if [ "$INSTALL_AMD_32" = true ]; then
+  echo "--> 为 AMD 显卡补充 32位 VA-API 解码驱动..."
+  sudo dnf install -y mesa-va-drivers-freeworld.i686
+fi
+
+
 
 echo "=== 9. 安装 MPV 播放器 ==="
 sudo dnf install -y mpv
