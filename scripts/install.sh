@@ -52,12 +52,13 @@ esac
 
 sudo dnf install -y libva-utils
 
-echo "=== 8. 安装 Steam 游戏客户端 ==="
-sudo dnf install -y steam
+echo "=== 8. 安装 Steam 游戏客户端与 Gamescope 微合成器 ==="
+sudo dnf install -y steam gamescope
 if [ "$INSTALL_AMD_32" = true ]; then
   echo "--> 为 AMD 显卡补充 32位 VA-API 解码驱动..."
   sudo dnf install -y mesa-va-drivers-freeworld.i686
 fi
+
 
 
 

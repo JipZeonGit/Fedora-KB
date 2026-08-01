@@ -48,6 +48,62 @@ sudo dnf install -y mesa-va-drivers-freeworld.i686
 
 ---
 
+### 1.4 常见踩坑：GNOME 窗口标题栏“返祖”与 Gamescope 解决方案
+
+在 Fedora Workstation (GNOME) 环境下运行 Steam Proton 游戏时，窗口化模式经常会出现经典 Windows 98/2000 风格的浅色传统标题栏（即“返祖”标题栏）。
+
+#### 原因分析
+GNOME 的 Mutter 合成器在窗口装饰 (Window Decorations) 方面存在兼容性 Bug。Valve 为了避免各种窗口崩溃或异常缩放，在 Proton 中主动禁用了 GNOME 原生窗口装饰，强制回退使用 Wine 自画的经典 Windows 风格标题栏。
+
+#### 解决方案 (按推荐程度排序)
+
+##### 方案一：使用 Gamescope 微合成器 (最推荐)
+Gamescope 是 Valve 为 SteamOS 与 Linux 桌面打造的高性能微合成器 (Micro-compositor)，能完全绕过 GNOME Mutter 的窗口装饰 Bug，提供干净的窗口管理、分辨率缩放与全屏控制。
+
+1. **安装 Gamescope**:
+   ```bash
+   sudo dnf install -y gamescope
+   ```
+
+2. **配置 Steam 游戏启动参数**:
+   右键点击 Steam 中的游戏 -> **属性 (Properties)** -> **通用 (General)** -> **启动选项 (Launch Options)**，根据需要填写以下参数组合：
+
+   - **推荐默认（显示干净的原生标题栏）**:
+     ```bash
+     gamescope -- %command%
+     ```
+     *(不加 `-f` 也不加 `-b` 时，Gamescope 会自动渲染包含“最小化、最大化、关闭”按钮的系统原生标准标题栏，彻底消除浅色返祖框)*
+
+   - **无边框窗口模式 (Borderless Windowed)**:
+     ```bash
+     gamescope -b -- %command%
+     ```
+     *(加入 `-b` 参数后隐藏全部标题栏与边框)*
+
+   - **强制全屏模式 (Fullscreen)**:
+     ```bash
+     gamescope -f -- %command%
+     ```
+     *(加入 `-f` 参数强制全屏显示)*
+
+   > **分辨率说明**: `-w` (宽度) 与 `-h` (高度) 参数**并非强制输入**。如果不指定 `-w` 与 `-h`，启动后可以直接使用鼠标按住窗口边缘自由拖拽缩放窗口大小；若需要固定窗口比例（如 `1920x1080`），可加上 `gamescope -w 1920 -h 1080 -- %command%`。
+
+
+##### 方案二：游戏内开启无边框窗口 (Borderless Windowed)
+在游戏图形设置中将窗口模式修改为“无边框窗口”，隐藏外部标题栏，获得接近全屏的体验。
+
+##### 方案三：强制使用较旧版本的 Proton
+在游戏属性 -> **兼容性** 中强制选择早期版本的 Proton（如 Proton 8 或 Proton 9 早期版本），部分旧版未启用该禁用补丁。
+
+##### 方案四：使用 Proton-GE 社区增强版
+通过 ProtonUp-Qt 安装 Proton-GE 补丁版本（特别是开启了原生 Wine-Wayland 支持的版本）。
+
+##### 方案五：等待官方 GNOME 修复
+等待 upstream GNOME Mutter 相关修复合并并随 Fedora 更新推送。
+
+
+---
+
 ## 2. MPV 极简高性能媒体播放器
 
 MPV 是 Linux 下最优秀的高性能开源播放器之一，在结合前述安装的完整版 FFmpeg 与 AMD Freeworld 驱动后，可实现完美的 VA-API 硬件解码播放。
