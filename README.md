@@ -38,6 +38,9 @@ Fedora-KB/
 *基础源与第三方仓库配置*
 - [01-dnf-mirrors.md](./01-System-Setup/01-dnf-mirrors.md) — DNF 镜像源一键加速 (`LinuxMirrors`) 与更新
 - [02-rpm-fusion.md](./01-System-Setup/02-rpm-fusion.md) — 启用 RPM Fusion 仓库 (Free & Nonfree)
+- [03-zram-and-swap-setup.md](./01-System-Setup/03-zram-and-swap-setup.md) — zRAM 内存压缩与 Btrfs 硬盘 Swap 兜底指南 (os error 12 错误排查、Btrfs 专用 mkswapfile 与优先级设定、vm.swappiness=180 高阶内核调优与 systemd-sysctl 持久化)
+
+
 
 ### 02. 驱动与编码器 (Drivers & Codecs)
 *显卡硬件加速与闭源音视频解码*
@@ -47,7 +50,8 @@ Fedora-KB/
 
 ### 03. 桌面环境与 UI 调优 (Desktop Environment)
 *告别 GNOME“毛坯房”*
-- [01-gnome-extensions.md](./03-Desktop-Environment/01-gnome-extensions.md) — GNOME 界面美化与控制优化 (恢复右上角**系统托盘图标** AppIndicator 并右对齐、开启窗口右上角**最小化/最大化控制按钮**、gsettings 命令行设置、快捷键 `Super+↓/↑`、Dash to Dock 常驻栏)
+- [01-gnome-extensions.md](./03-Desktop-Environment/01-gnome-extensions.md) — GNOME 界面美化与控制优化 (浏览器一键安装扩展依赖 gnome-browser-connector、系统托盘图标 AppIndicator 恢复、窗口右上角最小化/最大化按钮、Dash to Dock 常驻栏、DING 类 Ubuntu 桌面图标支持、Blur my Shell 顶栏/Dock 栏半透明高斯模糊毛玻璃效果)
+
 
 
 ### 04. 常用软件与 AI 开发工具 (Software & AI Tools)

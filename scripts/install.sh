@@ -65,8 +65,9 @@ fi
 echo "=== 9. 安装 MPV 播放器 ==="
 sudo dnf install -y mpv
 
-echo "=== 10. 安装 GNOME UI 优化扩展与工具 (Dash to Dock, AppIndicator, Tweaks) ==="
-sudo dnf install -y gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator gnome-extensions-app gnome-tweaks
+echo "=== 10. 安装 GNOME UI 优化扩展与工具 (Dash to Dock, AppIndicator, Tweaks, Web Connector) ==="
+sudo dnf install -y gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator gnome-extensions-app gnome-tweaks gnome-browser-connector
+
 
 
 echo "=== 11. 配置窗口右上角开启最小化、最大化按钮 ==="
