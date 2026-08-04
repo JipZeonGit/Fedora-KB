@@ -38,7 +38,8 @@ Fedora-KB/
 *基础源与第三方仓库配置*
 - [01-dnf-mirrors.md](./01-System-Setup/01-dnf-mirrors.md) — DNF 镜像源一键加速 (`LinuxMirrors`) 与更新
 - [02-rpm-fusion.md](./01-System-Setup/02-rpm-fusion.md) — 启用 RPM Fusion 仓库 (Free & Nonfree)
-- [03-zram-and-swap-setup.md](./01-System-Setup/03-zram-and-swap-setup.md) — zRAM 内存压缩与 Btrfs 硬盘 Swap 兜底指南 (os error 12 错误排查、Btrfs 专用 mkswapfile 与优先级设定、vm.swappiness=180 高阶内核调优与 systemd-sysctl 持久化)
+- [03-zram-and-swap-setup.md](./01-System-Setup/03-zram-and-swap-setup.md) — zRAM 内存压缩与 Btrfs 硬盘 Swap 兜底指南 (os error 12 错误排查、Btrfs 专用 mkswapfile 优先级设定、vm.swappiness=180 与 vm.watermark_scale_factor=100 内核水位线防卡顿调优)
+
 
 
 

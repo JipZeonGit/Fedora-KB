@@ -186,3 +186,63 @@ systemctl status systemd-sysctl
 
 修改完成后，内核参数将在系统开机时自动由 `systemd-sysctl.service` 读取生效。
 
+---
+
+## 6. 解决 IDE/桌面界面假死卡顿：调整 vm.watermark_scale_factor 内核水位线
+
+在重度 Java 开发、编译或运行多个 Docker 容器时，即使配置了 zRAM 和 Swapfile，偶尔依然会遇到 IDE 界面或桌面突然“假死/卡顿 1~2 秒”的现象。这通常是内核内存回收水位线（Memory Watermarks）缓冲过窄导致的。
+
+### 6.1 桌面卡顿的元凶：内核直接回收 (Direct Reclaim)
+
+Linux 内核维护了三条内存回收水位线：
+
+```text
+[ 物理内存 ]
+  |
+  +--- high  <-- kswapd 停止回收数据
+  |      ^
+  |      |  (缓冲阶梯差，由 vm.watermark_scale_factor 控制)
+  |      v
+  +--- low   <-- kswapd 后台线程被唤醒，平滑将冷数据压缩换出到 zRAM
+  |      ^
+  |      |  (缓冲阶梯差，由 vm.watermark_scale_factor 控制)
+  |      v
+  +--- min   <-- 强制触发“直接回收 (Direct Reclaim)”，前台线程被挂起暂停
+  |
+[ 绝对预留保命区 ] (由 vm.min_free_kbytes 决定)
+```
+
+- **问题根因**: 默认的 `vm.watermark_scale_factor = 10` 代表阶梯差仅为物理内存区容量的 **0.1%**。在 8GB 内存设备上，`low` 和 `min` 之间的阶梯缓冲带仅有约 100MB~150MB。当在 IDE 中启动微服务、进行多模块编译或瞬时爆发申请内存时，程序会在几十毫秒内迅速穿透这区区 100MB 的缓冲带直冲 `min` 保命线。
+- **卡顿机制**: 只要触及 `min` 线，内核就会强制触发 **Direct Reclaim（直接回收）**，此时正在申请内存的前台线程（例如 IDE 界面渲染线程）会被强行挂起暂停，原地等待内核同步释放出空间，导致桌面出现明显的假死或停顿感。
+
+---
+
+### 6.2 调优方案：扩大水位线缓冲区 (`vm.watermark_scale_factor = 100`)
+
+将 `vm.watermark_scale_factor` 从默认的 `10` (0.1%) 提高到 **`100` (1%)**：
+
+1. **原理**: 保持 `min_free_kbytes` 保命底线不动，将 `low` 与 `min` 之间的阶梯缓冲区扩大 **10 倍**（从 100MB 拉大至接近 1GB）。
+2. **效果**: 提前唤醒 `kswapd` 后台线程在后台平滑地将冷数据压缩写入 zRAM，为 JVM 爆发性内存申请留足缓冲空间，极大地降低触发“直接回收”的概率，消除 IDE 界面假死。
+
+---
+
+### 6.3 systemd 规范持久化配置与验证
+
+使用 systemd 标准配置目录写入并刷新服务：
+
+```bash
+# 1. 查看未修改前的原始内核参数 (默认值通常为 10 和 67584)
+sysctl vm.watermark_scale_factor vm.min_free_kbytes
+
+# 2. 写入 systemd 标准 sysctl 配置目录
+echo "vm.watermark_scale_factor = 100" | sudo tee /etc/sysctl.d/99-zram-watermark.conf
+
+# 3. 使用 systemd-sysctl 原生服务重载
+sudo systemctl restart systemd-sysctl
+
+# 4. 验证参数是否成功修改为 100
+sysctl vm.watermark_scale_factor
+# 预期输出: vm.watermark_scale_factor = 100
+```
+
+
